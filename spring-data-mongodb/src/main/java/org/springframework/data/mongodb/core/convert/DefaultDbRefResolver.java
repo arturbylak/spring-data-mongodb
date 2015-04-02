@@ -36,6 +36,7 @@ import org.springframework.data.mongodb.LazyLoadingException;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.mapping.MongoPersistentEntity;
 import org.springframework.data.mongodb.core.mapping.MongoPersistentProperty;
+import org.springframework.data.mongodb.util.MongoClientVersion;
 import org.springframework.objenesis.ObjenesisStd;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
@@ -106,7 +107,7 @@ public class DefaultDbRefResolver implements DbRefResolver {
 	 */
 	@Override
 	public DBObject fetch(DBRef dbRef) {
-		return ReflectiveDBRefResolver.fetch(mongoDbFactory.getDb(), dbRef);
+		return ReflectiveDBRefResolver.fetch(MongoClientVersion.isMongo3Driver() ? mongoDbFactory.getDb() : null, dbRef);
 	}
 
 	/**

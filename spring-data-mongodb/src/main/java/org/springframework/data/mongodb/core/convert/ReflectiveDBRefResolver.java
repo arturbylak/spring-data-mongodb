@@ -56,6 +56,8 @@ class ReflectiveDBRefResolver {
 		Assert.notNull(ref, "DBRef to fetch must not be null!");
 
 		if (isMongo3Driver()) {
+
+			Assert.notNull(db, "DB to fetch DBRef from must not be null!");
 			return db.getCollection(ref.getCollectionName()).findOne(ref.getId());
 		}
 
